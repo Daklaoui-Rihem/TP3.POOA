@@ -1,6 +1,12 @@
 package gestionprojet;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Entreprise {
 	
@@ -47,18 +53,14 @@ public class Entreprise {
 		return Liste_Deps.containsKey(d.getIdDep());
 	}
 		
-	public void DepMinCapacity()
-	{
-		Departement mindep = null;
-		int mincap = Integer.MAX_VALUE;
-
-    for (Departement d : Liste_Deps.values()) {
-        if (d.getLEmployes().size() < mincap) {
-            mincap = d.getLEmployes().size();
-            mindep = d;
-        }
-    }
-    mindep.afficheDep();
-	}
+	public void DepMinCapacity() {
+		TreeMap<Integer,Departement> tri = new TreeMap<>();
+		for (Departement d: Liste_Deps.values()) {
+			tri.put(d.getLEmployes().size(), d);
+		}
+		Map.Entry<Integer,Departement> pEntry = tri.firstEntry();
+		Departement min= pEntry.getValue();
+		min.afficheDep();
+  }
 }
 
